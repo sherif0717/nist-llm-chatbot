@@ -1,5 +1,6 @@
 import streamlit as st
 from langchain_openai import ChatOpenAI
+#from langchain.llms import OpenAI
 from langchain_openai import OpenAIEmbeddings
 
 llm = ChatOpenAI(
@@ -10,6 +11,3 @@ llm = ChatOpenAI(
 embeddings = OpenAIEmbeddings(
     openai_api_key=st.secrets["OPENAI_API_KEY"]
 )
-
-
-
