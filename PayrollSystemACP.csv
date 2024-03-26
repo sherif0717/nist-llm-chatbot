@@ -1,0 +1,6 @@
+
+The use case allows the Payroll Administrator to create either a “Total Hours Worked” or “Pay Year-to-Date” report., {(Payroll_Admin, {r, w, c/d-oa}, Reports)}
+This use case allows the Payroll Administrator to maintain employee information. This includes adding, changing, and deleting employee information from the system., {(Payroll_Admin, {r, w, c/d-oa}, employee_info)}
+This use case allows a Commissioned Employee to record and maintain purchase orders. This includes adding, changing, and deleting purchase orders. Commissioned employees must record each of their purchase orders in order to receive commissions., {(C_employee, {r, w, c/d-oa}, own_po)}
+This use case allows the Employee to update and submit timecard information. Hourly and salaried employees must submit weekly timecards recording all hours worked that week and which projects the hours are billed to. An Employee can only make changes to the timecard for the current pay period and before the timecard has been submitted., {(Employee, {r, w}, timecard)}
+This use case allows an Employee to select a payment method. The payment method controls how the Employee will be paid. The Employee may choose to either: pick up his check directly, receive it in the mail, or have it deposited directly into a specified bank account., {(Employee, {r, w}, payment_methods)}

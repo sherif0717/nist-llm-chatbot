@@ -1,0 +1,20 @@
+A Physiotherapist can read from, and write to an object attribute Examination and Evaluation of a patient | {(Physiotherapist, {r, w}, Examination and Evaluation)}
+A user is granted access rights to read from, and write to patient's Visits object attribute when the user is a Physiotherapist | {(Physiotherapist, {r, w}, Visits)}
+Authorization to read, and write on the object attribute Reexaminations record of a patient is granted to a Physiotherapist | {(Physiotherapist, {r, w}, Reexaminations)}
+The read and write operations on the object attribute Discharge Summary is allowed for a user with an attribute of Physiotherapist | {(Physiotherapist, {r, w}, Discharge Summary)}
+A Clinical Pharmacist can create, delete, read from, and write to the object attribute Medication History of a patient | {(Clinical Pharmacist, {c/d-oa, r, w}, Medication History)}
+A Clinical Pharmacist has the read access right to the object attribute Physicians Orders |
+{(Clinical Pharmacist, {r}, Physicians Orders)}
+A user attribute of Clinical Pharmacist is required to create, delete, read, and write the object attribute Drug Therapy-Monitoring | {(Clinical Pharmacist, {c/d-oa, r, w}, Drug Therapy-Monitoring)}
+The Hospital Admission Officer (HAO) have the read and write access rights to the object attribute Intake Assessments | {(HAO, {r, w}, Intake Assessments)}
+The read and write operations are granted on the object attribute Referrals if the attribute of the requestor includes Hospital Admission Officer (HAO) | {(HAO, {r, w}, Referrals)}
+A user with an attribute of Hospital Admission Officer (HAO) is allowed to create, delete, read from, and write to the object attribute Appointments and Cancellations | {(HAO, {c/d-oa, r, w}, Appointments and Cancellations)}
+The Hospital Admission Officer (HAO) can read from the Policies and Procedures object attribute | {(HAO, {r, w}, Policies and Procedures)}
+A read operation on the Infection Control and Safety Standards (ICSS) is granted when the requestor has an attribute of Hospital Admission Officer (HAO) | {(HAO, {r}, ICSS)}
+A user with an attribute of Hospital Accountant can create, delete, read from, and write to the object attribute Financial Reports | {(Hospital Accountant, {c/d-oa, r, w}, Financial Reports)}
+The operation to create, delete, read from, and write to the object attribute Assets and Infrastructure is allowed for a user attribute of Hospital Accountant | {(Hospital Accountant, {c/d-oa, r, w}, Assets and Infrastructure)}
+The read and write access rights is granted on the object attribute Payments and Receivables if the requestor has an attribute of Hospital Accountant | {(Hospital Accountant, {r, w}, Payments and Receivables)}
+Authorization to create, delete, read, and write on the object attribute Credit Balances and Outstanding Checks (CBOC) is granted to the user attribute Hospital Accountant | {(Hospital Accountant, {c/d-oa, r, w}, CBOC)}
+The Health Information Specialist (HIS) can create, delete, read from and to write to Chart Assembly object attribute | {(HIS, {c/d-oa, r, w}, Chart Assembly)}
+A read operation is allowed on the object attributes Subpoenas, Court Orders, and Legal Cases for a user with an attribute of Hospital Information Specialist (HIS) | {(HIS, {r}, Subpoenas), (HIS, {r}, Court Orders), (HIS, {r}, Legal Cases)}
+User can create, delete, read, and write to Patient Records when the attributes of the requestor includes Hospital Information Specialist (HIS) | {(HIS, {c/d-oa, r, w}, Patient Records)}
