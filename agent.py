@@ -5,6 +5,8 @@ from langchain.chains import GraphCypherQAChain
 from langchain.prompts import PromptTemplate
 from langchain.tools import Tool
 from tools.pe_fewshot import cypher_pe
+from tools.uaASSIGNpc_fewshot import cypher_uaASSIGNpc
+from tools.oaASSIGNpc_fewshot import cypher_oaASSIGNpc
 from langchain import hub
 from graph import graph
 from llm import llm
@@ -43,6 +45,19 @@ tools = [
         description="Create policy element pe as neo4j graph nodes using Cypher",
         func=cypher_pe,
         return_direct=False
+    ),
+    Tool.from_function(
+        name="Cypher uaASSIGNpc",
+        description="neo4j cypher command that creates an assignment relation between a user attribute and a policy class",
+        func=cypher_uaASSIGNpc,
+        return_direct=False
+    ),
+    Tool.from_function(
+        name="Cypher oaASSIGNpc",
+        description="from the policy expression identify object attribute and policy class as graph nodes, and \
+        apply the neo4j cypher commands that creates an assignment relation between an object attribute and a policy class",
+        func=cypher_uaASSIGNpc,
+        return_direct=False
     )
 ]
 
@@ -72,5 +87,6 @@ def generate_response(prompt):
     """
 
     response = agent_executor.invoke({"input": prompt})
+    print(f"\n\nresponse = {response}\n\n")
 
     return response['output']

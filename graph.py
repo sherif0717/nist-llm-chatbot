@@ -13,6 +13,15 @@ graph = Neo4jGraph(
 )
 
 
+uri=st.secrets["NEO4JD_URI"]
+username=st.secrets["NEO4JD_USERNAME"]
+password=st.secrets["NEO4JD_PASSWORD"]
+driver = GraphDatabase.driver(uri, auth=(username,password))
+driver.verify_connectivity()
+#with GraphDatabase.driver(uri, auth=auth) as driver:
+
+
+
 '''
 uri=st.secrets["NEO4J_URI"]
 username=st.secrets["NEO4J_USERNAME"]

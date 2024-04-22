@@ -17,7 +17,7 @@ Schema:
 Cypher examples:
 1. The Principal System Administrator (PSA) creates  the policy classes Legal PC.
 ```
-MERGE (pc:PolicyClass {{name: Legal PC}})
+MERGE (pc:PolicyClass {{name: "Legal PC"}})
 RETURN pc.name
 ```
 
