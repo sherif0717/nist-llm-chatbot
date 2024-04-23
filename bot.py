@@ -1,7 +1,6 @@
 import asyncio
 import streamlit as st
 from utils import write_message
-from agent import generate_response
 from chat_model import *
 
 

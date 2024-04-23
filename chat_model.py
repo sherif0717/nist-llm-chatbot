@@ -5,21 +5,24 @@ from openai import AsyncOpenAI
 from openai import OpenAI
 import csv
 import tiktoken
-from itertools import product
+#from itertools import product
 from dotenv import load_dotenv, find_dotenv
 from openai_multi_client import OpenAIMultiClient
 _ = load_dotenv(find_dotenv()) # read local .env file: save your openai api key in the local file named .env
 openai.api_key  = os.environ['OPENAI_API_KEY']
 
 from src.chat_prompts import *
-from src.graphDBBuilder import *
+#from src.graphDBBuilder import *
 
 
 PROMPT = 0
 TYPE = 1
 PREDICT = 2
 
+#openai client object for concurrent openai API calls
 api = OpenAIMultiClient(endpoint="chat.completions", data_template={"model": "gpt-3.5-turbo"})
+
+#openai client object for sequencial openai API calls
 client = AsyncOpenAI(api_key=openai.api_key)
 
 
@@ -140,7 +143,7 @@ def refine_assignment_response(response):
     #     res = "The assignment relation ({}, {}) has been created".format(response_dict["childPEName"], response_dict["parentPEName"])
     # elif 'delete' in response_dict["op_type"]:
     #     res = "The assignment relation ({}, {}) has been deleted".format(response_dict["childPEName"], response_dict["parentPEName"])
-    writeToDB(response_dict)
+    #writeToDB(response_dict)
     return response_dict
 
 def refine_triple_response(response):
@@ -176,7 +179,7 @@ def refine_triple_response(response):
     #     elif 'delete' in response_dict["op_type"]:
     #         res = "The permission for {} to perform {} on {} has been revoked".format(response_dict["userAttributeName"], response_dict["accessRightsSet"], response_dict["objectAttributeName"])
     #     response_dict["rel_name"] = "PROHIBITION"
-    writeToDB(response_dict)
+    #writeToDB(response_dict)
     return response_dict
 
 async def handle_asyncio_exceptions(task):
@@ -200,6 +203,35 @@ async def handle_asyncio_exceptions(task):
 
 
 async def prompt_processor(message):
+    """
+    A coroutine that runs as the entry point for the asyncio program to translate Natural Language Access
+    control Policy expressions to NIST NGAC specification using openai API.
+
+    Argument:
+    message -- a user prompt (NLACP expression) from the UI.
+
+    Helper Functions:
+    assign_fewshot, assoc_fewshot, and prohibit_fewshot -- imported functions from the src.chat_prompts module
+    that provide in-context training to openai for classifying user's prompts as an assignment, association,
+    and prohibition relations, respectively.
+
+    is_assignment_message, is_association_message, and is_prohibition_message -- are task coroutines scheduled
+    by the prompt_processor and await their completions from openai API calls.
+
+    format_prompt_type -- Identifies the only positive (True) openai API responses from task coroutine calls
+    and formats prompt to the response relation type.
+
+    map_prompt_to_operation -- uses the openai API call to recognize the entities (operation type and policy elements)
+    in the user prompt.
+
+    refine_assignment_response, and refine_triple_response -- formats the identified policy elements in the user's
+    prompt to NGAC specification.
+
+    add_done_callback -- ensures termination of task coroutines.
+
+    Return:
+    spec_response -- a translation of user's prompt to NIST NGAC specification.
+    """
     background_assign_response = set()
     background_assoc_response = set()
     background_prohibit_response = set()

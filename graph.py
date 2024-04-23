@@ -42,16 +42,5 @@ graph = Neo4jGraph(
     password=st.secrets["NEO4J_PASSWORD"],
 )
 
-from itertools import product
-from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv()) # read local .env file
 
-
-
-
-localGraph = Neo4jGraph(
-    url=url,
-    username=username,
-    password=password,
-)
 '''
